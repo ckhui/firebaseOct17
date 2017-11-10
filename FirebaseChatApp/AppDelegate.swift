@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
+
+        if let user = Auth.auth().currentUser {
+            print("User already logged in : \(user.uid)")
+        }else {
+            print("No user logged in")
+        }
         
         return true
     }

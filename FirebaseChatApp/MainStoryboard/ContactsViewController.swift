@@ -37,10 +37,10 @@ class ContactsViewController: UIViewController {
             if let infoDict = snapshot.value as? [String:Any],
                 let email = infoDict["email"] as? String {
                 
-                
+                let profileUrl = infoDict["profileImage"] as? String
                 
                 DispatchQueue.main.async {
-                    let newUser = User(anEmail: email, aUid: snapshot.key)
+                    let newUser = User(anEmail: email, aUid: snapshot.key,  url: profileUrl)
                     self.users.append(newUser)
                     
                     let indexPath = IndexPath(row: self.users.count - 1, section: 0)
@@ -105,7 +105,10 @@ extension ContactsViewController : UITableViewDataSource {
         let user = users[indexPath.row]
         
         cell.textLabel?.text = user.email
-        
+
+        if let profileUrl = user.profileUrl {
+            cell.imageView?.loadImageFromUrl(url: profileUrl)
+        }
         return cell
     }
 }

@@ -11,9 +11,11 @@ import Foundation
 class User {
     var email : String = ""
     var uid : String = ""
+    var profileUrl : String?
     
-    init(anEmail: String, aUid: String) {
+    init(anEmail: String, aUid: String, url : String? = nil) {
         email = anEmail
         uid = aUid
+        profileUrl = url
     }
 }

@@ -18,6 +18,32 @@ extension UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
+}
 
+extension UIImageView {
+    func loadImageFromUrl(url : String) {
+        //1. get the url
+        guard let imageUrl = URL(string: url)
+            else { return }
+
+        //2. get the image data
+                //1. url session, task, resume
+        let session = URLSession.shared
+        let task = session.dataTask(with: imageUrl) { (data, response, error) in
+
+            if let error = error {
+                print("Dowload Image Error : \(error.localizedDescription)")
+                return
+            }
+            //3. covert to image
+            if let data = data {
+                //4. display
+                DispatchQueue.main.async {
+                    self.image = UIImage(data: data)
+                }
+            }
+        }
+        task.resume()
+    }
 }
 
